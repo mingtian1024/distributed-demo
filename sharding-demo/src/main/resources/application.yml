@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  shardingsphere:
+    datasource:
+      names: ds1,ds2
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/test_db_sharding?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&characterEncoding=utf8
+        username: root
+        password: 123456
+    sharding:
+      tables:
+        tb_user:
+          actual-data-nodes: ds1.tb_user_$->{0..1}
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: tb_user_$->{id % 2}
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+      binding-tables: tb_user
+      broadcast-tables: t_address
+  application:
+    name: sharding-demo
+mybatis:
+  configuration:
+    cache-enabled: true
+    use-generated-keys: true
+    default-executor-type: REUSE
+    use-actual-param-name: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -4,6 +4,7 @@ import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.nacos.api.config.listener.AbstractListener;
 import com.sky.api.system.User;
 import com.sky.nacosdemoprovider1.entity.AppEntity;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 //@RefreshScope // 实时刷新配置变化
 @RestController
@@ -84,6 +90,34 @@ public class MyController {
                 }
             });
         };
+    }
+
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
+    @RequestMapping("/sendmq/msg")
+    public String testMq(String name){
+        String messageId = String.valueOf(UUID.randomUUID());
+        String messageData = "test message, hello!";
+        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Map<String,Object> map=new HashMap<>();
+        map.put("messageId",messageId);
+        map.put("messageData",messageData);
+        map.put("createTime",createTime);
+        rabbitTemplate.convertAndSend("test_direct_change","test",map);
+        return "完成";
+    }
+
+    @RequestMapping("/sendmq/user")
+    public String testMqUser(String name){
+        User user = new User();
+        user.setId(1);
+        user.setName(name);
+        user.setAge(18);
+        user.setPhone("123132");
+        rabbitTemplate.convertAndSend("test_direct_change","test",user);
+        return "完成";
     }
 
 }

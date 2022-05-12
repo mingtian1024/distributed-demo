@@ -1,0 +1,20 @@
+server:
+  # 应用服务 WEB 访问端口
+  port: 8081
+spring:
+  application:
+    # 应用名称
+    name: nacos-demo-consumer1
+  cloud:
+    nacos:
+      discovery:
+        # Nacos认证信息
+        username: nacos
+        password: nacos
+        # Nacos 服务发现与注册配置，其中子属性 server-addr 指定 Nacos 服务器主机和端口
+        server-addr: 127.0.0.1:8848
+        # 注册到 nacos 的指定 namespace，默认为 public
+        namespace: public
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672

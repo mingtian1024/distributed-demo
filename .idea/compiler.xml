@@ -8,12 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-api" />
+        <module name="spring-prometheus-demo" />
         <module name="nacos-demo-provider1" />
         <module name="zookeeper-demo" />
+        <module name="gateway-demo" />
         <module name="nacos-demo-provider2" />
         <module name="dubbo-consumer1" />
+        <module name="nacos-demo-consumer2" />
         <module name="sharding-demo" />
         <module name="nacos-demo-consumer1" />
+        <module name="dubbo-api" />
       </profile>
     </annotationProcessing>
   </component>

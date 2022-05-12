@@ -9,7 +9,10 @@
         <option value="$PROJECT_DIR$/nacos-demo-provider1/pom.xml" />
         <option value="$PROJECT_DIR$/nacos-demo-consumer1/pom.xml" />
         <option value="$PROJECT_DIR$/nacos-demo-provider2/pom.xml" />
-        <option value="$PROJECT_DIR$/dubbo-consumer1/pom.xml" />
+        <option value="$PROJECT_DIR$/dubbo-demo/dubbo-consumer1/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/nacos-demo-consumer2/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-prometheus-demo/pom.xml" />
       </list>
     </option>
   </component>
